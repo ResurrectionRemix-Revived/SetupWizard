@@ -46,7 +46,7 @@ import org.lineageos.setupwizard.R;
 
 import lineageos.hardware.LineageHardwareManager;
 import lineageos.providers.LineageSettings;
-
+import android.provider.Settings;
 public class LineageSettingsActivity extends BaseSetupWizardActivity {
 
     public static final String TAG = LineageSettingsActivity.class.getSimpleName();
@@ -119,8 +119,8 @@ public class LineageSettingsActivity extends BaseSetupWizardActivity {
         mNavKeys = (CheckBox) findViewById(R.id.nav_keys_checkbox);
         mSupportsKeyDisabler = isKeyDisablerSupported(this);
         if (mSupportsKeyDisabler) {
-            mNavKeys.setChecked(LineageSettings.System.getIntForUser(getContentResolver(),
-                    LineageSettings.System.FORCE_SHOW_NAVBAR, 0, UserHandle.USER_CURRENT) != 0);
+            mNavKeys.setChecked(Settings.System.getIntForUser(getContentResolver(),
+                    Settings.System.FORCE_SHOW_NAVBAR, 0, UserHandle.USER_CURRENT) != 0);
         } else {
             navKeysRow.setVisibility(View.GONE);
         }
@@ -166,8 +166,8 @@ public class LineageSettingsActivity extends BaseSetupWizardActivity {
     private void updateDisableNavkeysOption() {
         if (mSupportsKeyDisabler) {
             final Bundle myPageBundle = mSetupWizardApp.getSettingsBundle();
-            boolean enabled = LineageSettings.System.getIntForUser(getContentResolver(),
-                    LineageSettings.System.FORCE_SHOW_NAVBAR, 0, UserHandle.USER_CURRENT) != 0;
+            boolean enabled = Settings.System.getIntForUser(getContentResolver(),
+                    Settings.System.FORCE_SHOW_NAVBAR, 0, UserHandle.USER_CURRENT) != 0;
             boolean checked = myPageBundle.containsKey(DISABLE_NAV_KEYS) ?
                     myPageBundle.getBoolean(DISABLE_NAV_KEYS) :
                     enabled;

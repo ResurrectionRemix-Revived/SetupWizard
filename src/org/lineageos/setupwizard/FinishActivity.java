@@ -43,7 +43,7 @@ import android.widget.ImageView;
 import com.google.android.setupcompat.util.WizardManagerHelper;
 
 import org.lineageos.setupwizard.util.EnableAccessibilityController;
-
+import android.provider.Settings;
 import lineageos.providers.LineageSettings;
 
 import static android.os.Binder.getCallingUserHandle;
@@ -204,12 +204,12 @@ public class FinishActivity extends BaseSetupWizardActivity {
     private static void writeDisableNavkeysOption(Context context, boolean enabled) {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        final boolean virtualKeysEnabled = LineageSettings.System.getIntForUser(
-                    context.getContentResolver(), LineageSettings.System.FORCE_SHOW_NAVBAR, 0,
+        final boolean virtualKeysEnabled = Settings.System.getIntForUser(
+                    context.getContentResolver(), Settings.System.FORCE_SHOW_NAVBAR, 0,
                     UserHandle.USER_CURRENT) != 0;
         if (enabled != virtualKeysEnabled) {
-            LineageSettings.System.putIntForUser(context.getContentResolver(),
-                    LineageSettings.System.FORCE_SHOW_NAVBAR, enabled ? 1 : 0,
+            Settings.System.putIntForUser(context.getContentResolver(),
+                    Settings.System.FORCE_SHOW_NAVBAR, enabled ? 1 : 0,
                     UserHandle.USER_CURRENT);
         }
 
